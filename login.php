@@ -33,7 +33,20 @@
               <h1 class="text-sm   text-gray-500 md:text-2xl ">
                   Sign in to your account
               </h1>
-              <form class="space-y-4 md:space-y-6" action="#">
+                    <?php
+                                if(isset($_GET["msg"])){
+                                    echo "<div class='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative' role='alert'>
+                                    <strong class='font-bold'>Login Failed !</strong>
+                                    <span class='block sm:inline'>".$_GET['msg']."</span>
+                                    <span class='absolute top-0 bottom-0 right-0 px-4 py-3'>
+                                    </span>
+                                    </div>";
+
+                                    
+                                
+                                }
+                    ?>
+              <form class="space-y-4 md:space-y-6" action="includes/loginInc.php" method="POST">
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-500 ">Your email</label>
                       <input type="email" name="email" id="email" class=" border border-2 border-gray-500 text-gray-500 sm:text-sm rounded-lg   block w-full p-2.5  placeholder-gray-300  " placeholder="email@something.com" required="">
@@ -42,7 +55,7 @@
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-500 ">Password</label>
                       <input type="password" name="password" id="password" placeholder="••••••••" class=" border border-2 border-gray-500 text-gray-500 sm:text-sm rounded-lg   block w-full p-2.5   placeholder-gray-300 " required="">
                   </div>
-                  <button type="submit" class="w-full text-gray-500 border-solid border-2 border-gray-500 bg-white hover:bg-gray-500 hover:text-white rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
+                  <button type="submit" name="login" class="w-full text-gray-500 border-solid border-2 border-gray-500 bg-white hover:bg-gray-500 hover:text-white rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                   
               </form>
           </div>
