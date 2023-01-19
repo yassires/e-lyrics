@@ -15,12 +15,6 @@ class LoginModel extends DB{
             exit();
         }
 
-        // if($statement->rowCount() == 0){
-        //     $statement = null;
-        //     header("location: ../login.php?error=usernotfound");
-        //     exit();
-        // }
-
         return $statement->fetch();
     }
 

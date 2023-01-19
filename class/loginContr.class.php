@@ -27,8 +27,6 @@ class LoginContr extends LoginModel {
             exit();
         }
         $userinfo =  $this->getUser($this->email, $this->password);
-        // var_dump($userinfo);
-        // die();
         $this->verifyRecords($userinfo);
     }
 
@@ -50,8 +48,6 @@ class LoginContr extends LoginModel {
             $_SESSION["user"] = $userinfo;
             header("location:../home.php");
         }
-
- 
         
     }
 }    
