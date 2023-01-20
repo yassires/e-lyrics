@@ -139,7 +139,7 @@ if (!isset($_SESSION['user'])) {
         </div>
 
         <div class="p-5 pb-0 flex justify-end">
-          <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"  type="button" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
+          <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
             Add song
           </button>
         </div>
@@ -151,39 +151,39 @@ if (!isset($_SESSION['user'])) {
             <b class="flex flex-row text-gray-500 text-3xl">Latest</b>
 
             <?php
-            $sng = $song->getSongs(); 
-            foreach ($sng as $s){?>
+            $sng = $song->getSongs();
+            foreach ($sng as $s) { ?>
               <div class="grid p-4 gap-3">
-                      <div class="col-span-2 flex flex-auto items-center justify-between p-5 bg-white rounded">
-                          <table class="min-w-full divide-y divide-gray-200 table-auto">
-                              <tbody class="bg-white divide-y divide-gray-200">
-                                  <tr>
-                                      <td class="px-6 py-4 whitespace-nowrap">
-                                          <div class="flex items-center">
-                                              <div class="flex-shrink-0 h-16 w-16">
-                                                  <img class="h-16 w-16" src="<?php echo $s["sng_img"]?>" alt="" />
-                                              </div>
-                                              <div class="ml-4">
-                                                  <div class="text-sm font-medium text-gray-900"><?php echo $s["title"]; ?></div>
-                                              </div>
-                                          </div>
-                                      </td>
+                <div class="col-span-2 flex flex-auto items-center justify-between p-5 bg-white rounded">
+                  <table class="min-w-full divide-y divide-gray-200 table-auto">
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="flex items-center">
+                            <div class="flex-shrink-0 h-16 w-16">
+                              <img class="h-16 w-16" src="<?php echo $s["sng_img"] ?>" alt="" />
+                            </div>
+                            <div class="ml-4">
+                              <div class="text-sm font-medium text-gray-900"><?php echo $s["title"]; ?></div>
+                            </div>
+                          </div>
+                        </td>
 
-                                      <td class="px-6 py-4 whitespace-nowrap">
-                                          <span>
-                                              <div class="text-sm text-gray-500"><?php echo $s["artist_name"];?></div>
-                                          </span>
-                                      </td>
-                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $s["genre"];?></td>
-                                  </tr>
-                                  <!-- More people... -->
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span>
+                            <div class="text-sm text-gray-500"><?php echo $s["artist_name"]; ?></div>
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $s["genre"]; ?></td>
+                      </tr>
+                      <!-- More people... -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
             <?php
-                }?>
+            } ?>
 
           </div>
 
@@ -217,39 +217,39 @@ if (!isset($_SESSION['user'])) {
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <?php foreach($res as $r){?>
+                <?php foreach ($res as $r) { ?>
                   <tr>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0 h-10 w-10">
-                        <img class="h-10 w-10 rounded-full" src="img.jpg" alt="">
-                      </div>
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          <?php echo $r['name'];?>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10">
+                          <img class="h-10 w-10 rounded-full" src="img.jpg" alt="">
                         </div>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">
+                            <?php echo $r['name']; ?>
+                          </div>
 
+                        </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span>
-                      <div class="text-sm text-gray-500">
-                      <?php echo $r['email'];?>
-                      </div>
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Admin
-                  </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span>
+                        <div class="text-sm text-gray-500">
+                          <?php echo $r['email']; ?>
+                        </div>
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      Admin
+                    </td>
 
-                </tr>
-                
-                
+                  </tr>
+
+
                 <?php
                 } ?>
-                
+
 
 
                 <!-- More people... -->
@@ -272,7 +272,7 @@ if (!isset($_SESSION['user'])) {
 
 
   <!-- Modal toggle -->
- 
+
 
   <!-- Main modal -->
   <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -295,22 +295,22 @@ if (!isset($_SESSION['user'])) {
             <div>
               <label for="title" class=" mb-2 text-sm font-medium text-white">Artist</label>
               <select name="artist" class="form-select" id="artist">
-								<option value="">Please select</option>
-								<option value="1">Artist 1</option>
-								<option value="2">Artist 2</option>
-								<option value="3">Artist 3</option>
-								<option value="4">Artist 4</option>
-							</select>
+                <option value="">Please select</option>
+                <option value="1">Artist 1</option>
+                <option value="2">Artist 2</option>
+                <option value="3">Artist 3</option>
+                <option value="4">Artist 4</option>
+              </select>
             </div>
             <div>
               <label for="title" class=" mb-2 text-sm font-medium text-white">Genre</label>
               <select name="genre" class="form-select" id="genre">
-								<option value="">Please select</option>
-								<option value="1">Genre 1</option>
-								<option value="2">Genre 2</option>
-								<option value="3">Genre 3</option>
-								<option value="4">Genre 4</option>
-							</select>
+                <option value="">Please select</option>
+                <option value="1">Genre 1</option>
+                <option value="2">Genre 2</option>
+                <option value="3">Genre 3</option>
+                <option value="4">Genre 4</option>
+              </select>
             </div>
             <div>
               <label for="title" class=" mb-2 text-sm font-medium text-white">Album</label>
@@ -318,14 +318,14 @@ if (!isset($_SESSION['user'])) {
             </div>
             <div>
               <label for="title" class=" mb-2 text-sm font-medium text-white">date</label>
-              <input type="date" name="album" id="album" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+              <input type="date" name="date" id="date" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
             </div>
             <div>
               <label for="lyrics" class="mb-2 text-sm font-medium  text-white">Lyrics</label>
               <textarea type="text" name="lyrics" id="lyrics" placeholder="Something" class=" border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " required></textarea>
             </div>
             <div class="flex justify-end px-2">
-                  <button type="submit" name="add" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>                
+              <button type="submit" name="add" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
             </div>
           </form>
         </div>
