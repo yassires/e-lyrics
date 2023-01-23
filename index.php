@@ -30,12 +30,12 @@ if (!isset($_SESSION['user'])) {
 
 <body class="font-[Poppins]  h-screen ">
   <header class="bg-black">
-    <nav class="flex justify-between items-center w-[90%] mx-auto">
-      <div>
-        <h5 class="font-bold text-white pr-32">E-Lyrics</h5>
+    <nav class="flex justify-between items-center p-2">
+      <div class="font-bold text-white sm:text-xs">
+         E-Lyrics
       </div>
-      <div class="nav-links text-white md:w-auto w-full flex items-center p-3">
-        <ul class="flex pr-32 md:gap-[10%]">
+      <div class=" text-white">
+        <ul class="flex">
           <li>
             <a class="hover:text-gray-500" href="home.php">Home</a>
           </li>
@@ -49,7 +49,7 @@ if (!isset($_SESSION['user'])) {
           </li>
         </ul>
       </div>
-      <div class="flex items-center gap-6 text-white">
+      <div class="flex  text-white">
         <?php
         if (isset($_SESSION["user"])) {
         ?>
@@ -94,255 +94,255 @@ if (!isset($_SESSION['user'])) {
   </header>
 
 
-  <div class="flex-auto">
-    <div class="flex flex-col">
-      <div class="bg-blue-50 min-h-screen">
-        <div class="p-4 pt-28 pb-0  pl-10 font-bold text-gray-600">Statistics</div>
-        <?php $res = $controller->getUsers();
-        ?>
 
-        <div class=" mt-8 grid lg:grid-cols-3 sm:grid-cols-2 p-4 gap-10 ">
-          <!--Grid starts here-->
-          <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
-            <div>
-              <div class="text-sm text-gray-400 ">Numbers of users</div>
-              <div class="flex items-center pt-1">
-                <div class="text-3xl font-medium text-gray-600 ">34</div>
-              </div>
-            </div>
-            <div class="text-gray-500 text-4xl">
-              <i class="fa-solid fa-user"></i>
+  <div class="flex flex-col">
+    <div class="bg-blue-50 min-h-screen">
+      <div class="p-4 pt-28 pb-0  pl-10 font-bold text-gray-600">Statistics</div>
+      <?php $res = $controller->getUsers();
+      ?>
+
+      <div class=" mt-8 grid lg:grid-cols-3 sm:grid-cols-2 p-4 gap-10 ">
+        <!--Grid starts here-->
+        <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+          <div>
+            <div class="text-sm text-gray-400 ">Numbers of users</div>
+            <div class="flex items-center pt-1">
+              <div class="text-3xl font-medium text-gray-600 ">34</div>
             </div>
           </div>
-
-          <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
-            <div>
-              <div class="text-sm text-gray-400 ">Check Out Today</div>
-              <div class="flex items-center pt-1">
-                <div class="text-3xl font-medium text-gray-600 ">44</div>
-              </div>
-            </div>
-            <div class="text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
-              </svg>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
-            <div>
-              <div class="text-sm text-gray-400 ">Total Songs</div>
-              <div class="flex items-center pt-1">
-                <div class="text-3xl font-medium text-gray-600 ">10</div>
-              </div>
-            </div>
-            <div class="text-gray-500 text-4xl">
-              <i class="fa-solid fa-compact-disc"></i>
-            </div>
-          </div>
-
-          <!-- Grid ends here..-->
-
-        </div>
-        <div class="flex justify-end">
-          <div class="p-5 pb-0 " onclick="addbtn()">
-            <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
-              Add Song
-            </button>
-          </div>
-          <div class="p-5 pb-0 " onclick=" add_artist_btn()">
-            <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
-              Add Artist
-            </button>
+          <div class="text-gray-500 text-4xl">
+            <i class="fa-solid fa-user"></i>
           </div>
         </div>
 
-
-
-        <div div class=" mt-5 grid md:grid-cols-1   lg:grid-cols-2  xl:grid:cols-3 p-4 gap-3">
-
-          <div class=" col-span-2 md:col-span-1 lg:col-span-1 sm:col-span-1 flex flex-col   p-5 bg-white rounded shadow-sm ">
-            <b class="flex flex-row text-gray-500 text-3xl">Latest</b>
-            <div class="flex justify-end">
-              <form action="get" class="bg-white border border-black">
-                <input type="text" class="px-1 border border-none" placeholder="Search Song & Artist" id="myInput" onkeyup="search()">
-                <i class="fa-solid fa-magnifying-glass px-1"></i>
-              </form>
+        <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+          <div>
+            <div class="text-sm text-gray-400 ">Check Out Today</div>
+            <div class="flex items-center pt-1">
+              <div class="text-3xl font-medium text-gray-600 ">44</div>
             </div>
+          </div>
+          <div class="text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+          <div>
+            <div class="text-sm text-gray-400 ">Total Songs</div>
+            <div class="flex items-center pt-1">
+              <div class="text-3xl font-medium text-gray-600 ">10</div>
+            </div>
+          </div>
+          <div class="text-gray-500 text-4xl">
+            <i class="fa-solid fa-compact-disc"></i>
+          </div>
+        </div>
+
+        <!-- Grid ends here..-->
+
+      </div>
+      <div class="flex justify-end">
+        <div class="p-5 pb-0 " onclick="addbtn()">
+          <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
+            Add Song
+          </button>
+        </div>
+        <div class="p-5 pb-0 " onclick=" add_artist_btn()">
+          <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
+            Add Artist
+          </button>
+        </div>
+      </div>
 
 
-            <div class="grid p-4 gap-3 ">
-              <div class="col-span-2 flex flex-auto items-center justify-between bg-white rounded">
-                <table id="table" class="min  -w-full divide-y divide-gray-200 table-auto">
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    <?php
-                    $sng = $song->getSongs();
-                    foreach ($sng as $s) { ?>
-                      <tr id="<?php echo $s["idSong"] ?>">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="flex items-center">
-                            <div class="text-black" id="index">
-                              <?php echo $s["idSong"] ?>
-                            </div>
-                            <div class="flex-shrink-0 h-16 w-16">
-                              <img class="h-16 w-16" src="<?php echo $s["sng_img"] ?>" alt="" />
-                            </div>
-                            <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900 title" data-title="<?php echo $s["title"] ?>" id="song_title"> <?php echo $s["title"]; ?></div>
-                            </div>
+
+      <div class="sm:block sm:mb-10 md:flex p-1  md:p-4 gap-3 ">
+
+        <div class="sm:p-1  md:p-5 bg-white rounded shadow-sm  w-100">
+          <b class=" text-gray-500 text-3xl">Latest</b>
+          <div class="flex justify-end">
+            <form action="get" class="bg-white border border-black">
+              <input type="text" class="px-1 border border-none" placeholder="Search Song & Artist" id="myInput" onkeyup="search()">
+              <i class="fa-solid fa-magnifying-glass px-1"></i>
+            </form>
+          </div>
+
+
+          <div class="md:grid-cols-1  lg:grid-cols-2 overflow-x-scroll">
+            <div class="rounded ">
+              <table id="table" class="w-100" style="width: 100%;">
+                <tbody class="divide-y divide-gray-200 ">
+                  <?php
+                  $sng = $song->getSongs();
+                  foreach ($sng as $s) { ?>
+                    <tr id="<?php echo $s["idSong"] ?>">
+                      <td class="px-2 py-4 ">
+                        <div class="flex items-center">
+                          <div class="text-black hidden" id="index">
+                            <?php echo $s["idSong"] ?>
                           </div>
-                        </td>
+                          <div class="flex-shrink-0 h-16 w-16">
+                            <img class="h-16 w-16" src="<?php echo $s["sng_img"] ?>" alt="" />
+                          </div>
+                          <div class="ml-2">
+                            <div class="text-sm font-medium text-gray-900 title" data-title="<?php echo $s["title"] ?>" id="song_title"> <?php echo $s["title"]; ?></div>
+                          </div>
+                        </div>
+                      </td>
 
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span>
-                            <div class="text-sm text-gray-500" artist_name=<?php echo $s["idArtist"]; ?> id="song_artist"> <?php echo $s["name"]; ?></div>
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap hidden">
-                          <span>
-                            <div class="text-sm text-gray-500" release_date=<?php echo $s["date"]; ?> id="song_release"><?php echo $s["date"]; ?></div>
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span>
-                            <div class="text-sm text-gray-500" album=<?php echo $s["album"]; ?> id="song_album"><?php echo $s["album"]; ?></div>
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap hidden">
-                          <span>
-                            <div class="text-sm text-gray-500" lyrics=<?php echo $s["lyrics"]; ?> id="song_lyrics"> <?php echo $s["lyrics"]; ?></div>
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" genre=<?php echo $s["genre_id"]; ?> id="song_genre"> <?php echo $s["g_name"]; ?></td>
-                        <td>
-                          <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="button" onclick="edit(<?php echo $s['idSong'] ?>)">
-                            <i class="fa-solid fa-pen-to-square text-gray-500"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    <?php
-                    } ?>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span>
+                          <div class="text-sm text-gray-500" artist_name=<?php echo $s["idArtist"]; ?> id="song_artist"> <?php echo $s["name"]; ?></div>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap hidden">
+                        <span>
+                          <div class="text-sm text-gray-500" release_date=<?php echo $s["date"]; ?> id="song_release"><?php echo $s["date"]; ?></div>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span>
+                          <div class="text-sm text-gray-500" album=<?php echo $s["album"]; ?> id="song_album"><?php echo $s["album"]; ?></div>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap hidden">
+                        <span>
+                          <div class="text-sm text-gray-500" lyrics=<?php echo $s["lyrics"]; ?> id="song_lyrics"> <?php echo $s["lyrics"]; ?></div>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" genre=<?php echo $s["genre_id"]; ?> id="song_genre"> <?php echo $s["g_name"]; ?></td>
+                      <td>
+                        <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="button" onclick="edit(<?php echo $s['idSong'] ?>)">
+                          <i class="fa-solid fa-pen-to-square text-gray-500"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <?php
+                  } ?>
+                  <!-- More people... -->
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="p-5 bg-white rounded shadow-sm md:grid-cols-1 lg:grid-cols-1 w-100">
+          <b class="flex flex-row text-gray-500 text-3xl">Artists</b>
+          <?php
+          $art = $artist->getArtists();
+          foreach ($art as $a) { ?>
+            <div class="">
+              <div class=" flex flex-auto items-center justify-between bg-white rounded">
+                <table class="min-w-full divide-y divide-gray-200 table-auto">
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                      <td class="sm:pr-2 sm: pt-2 md:px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-12 w-12">
+                            <img class="h-12 w-12 rounded-full" src="<?php echo $a["artist_img"] ?>" alt="" />
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900" name=<?php echo $a["id"] ?>> <?php echo $a["name"] ?></div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="sm:px-1 md:px-6 py-4 whitespace-nowrap">
+                        <span>
+                          <div class="text-sm text-gray-500" artist_genre=<?php echo $a["genre"] ?>> <?php echo $a["genre"] ?></div>
+                        </span>
+                      </td>
+                    </tr>
                     <!-- More people... -->
                   </tbody>
                 </table>
-
+                <div>
+                  <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="button" onclick="edit_artist(id)">
+                    <i class="fa-solid fa-pen-to-square text-gray-500"></i>
+                  </button>
+                </div>
               </div>
             </div>
 
-
-
-          </div>
-
-          <div class=" flex flex-col   p-5 bg-white rounded shadow-sm md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-            <b class="flex flex-row text-gray-500 text-3xl">Artists</b>
-            <?php
-            $art = $artist->getArtists();
-            foreach ($art as $a) { ?>
-              <div class="">
-                <div class=" flex flex-auto items-center justify-between bg-white rounded">
-                  <table class="min-w-full divide-y divide-gray-200 table-auto">
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 h-12 w-12">
-                              <img class="h-12 w-12 rounded-full" src="<?php echo $a["artist_img"] ?>" alt="" />
-                            </div>
-                            <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900" name=<?php echo $a["id"] ?>> <?php echo $a["name"] ?></div>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span>
-                            <div class="text-sm text-gray-500" artist_genre=<?php echo $a["genre"] ?>> <?php echo $a["genre"] ?></div>
-                          </span>
-                        </td>
-                      </tr>
-                      <!-- More people... -->
-                    </tbody>
-                  </table>
-                  <div>
-                    <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="button" onclick="edit_artist(id)">
-                      <i class="fa-solid fa-pen-to-square text-gray-500"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-            <?php
-            } ?>
-          </div>
-
-
-
+          <?php
+          } ?>
         </div>
-        <!--Table-->
-        <div class="p-4 pl-10 font-bold text-gray-600">Users</div>
-        <div class="grid  lg:grid-cols-1  md:grid-cols-1 p-4 gap-3">
-          <div class="col-span-2 flex flex-auto items-center justify-between  p-5 bg-white rounded shadow-sm">
-            <table class="min-w-full divide-y divide-gray-200 table-auto">
-              <thead class="bg-gray-50">
+
+
+
+      </div>
+      <!--Table-->
+      <div class="p-4 pl-10 font-bold text-gray-600">Users</div>
+      <div class="grid  lg:grid-cols-1  md:grid-cols-1 p-4 gap-3 overflow-x-scroll">
+        <div class="col-span-2 flex flex-auto items-center justify-between  p-5 bg-white rounded shadow-sm">
+          <table class="min-w-full divide-y divide-gray-200 table-auto">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Role
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <?php foreach ($res as $r) { ?>
                 <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Email
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Role
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <?php foreach ($res as $r) { ?>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                          <img class="h-10 w-10 rounded-full" src="img.jpg" alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900">
-                            <?php echo $r['name']; ?>
-                          </div>
-
-                        </div>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img class="h-10 w-10 rounded-full" src="img.jpg" alt="">
                       </div>
-                    </td>
-
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span>
-                        <div class="text-sm text-gray-500">
-                          <?php echo $r['email']; ?>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          <?php echo $r['name']; ?>
                         </div>
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      Admin
-                    </td>
 
-                  </tr>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span>
+                      <div class="text-sm text-gray-500">
+                        <?php echo $r['email']; ?>
+                      </div>
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Admin
+                  </td>
+
+                </tr>
 
 
-                <?php
-                } ?>
+              <?php
+              } ?>
 
 
 
-                <!-- More people... -->
-              </tbody>
-            </table>
-          </div>
+              <!-- More people... -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
+
 
   <!-- <script>
       const navLinks = document.querySelector(".nav-links");
