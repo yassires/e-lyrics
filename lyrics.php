@@ -135,43 +135,6 @@ if (!isset($_SESSION['user'])) {
                             } ?>
 
                         </div>
-
-                        <div class=" flex flex-col   p-5 bg-white rounded shadow-sm">
-                            <b class="flex flex-row text-gray-500 text-3xl">Artists</b>
-                            <?php
-                            $art = $artist->getArtists();
-                            foreach ($art as $a) { ?>
-                                <div class="">
-                                    <div class="md:col-span-2 flex flex-auto items-center justify-between bg-white rounded">
-                                        <table class="min-w-full divide-y divide-gray-200 table-auto">
-                                            <tbody class="bg-white divide-y divide-gray-200">
-                                                <tr>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="flex items-center">
-                                                            <div class="flex-shrink-0 h-12 w-12">
-                                                                <img class="h-12 w-12 rounded-full" src="<?php echo $a["artist_img"] ?>" alt="" />
-                                                            </div>
-                                                            <div class="ml-4">
-                                                                <div class="text-sm font-medium text-gray-900"><?php echo $a["name"] ?></div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <span>
-                                                            <div class="text-sm text-gray-500"><?php echo $a["genre"] ?></div>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <!-- More people... -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            <?php
-                            } ?>
-                        </div>
                     </div>
                 </div>
                 <!--Table-->
@@ -181,20 +144,6 @@ if (!isset($_SESSION['user'])) {
         </div>
         </div>
     </section>
-
-    <!-- <div class="">
-            <form action="get" class="bg-white">
-                <input type="text" class="px-1" placeholder="Search Song & Artist">
-                <i class="fa-solid fa-magnifying-glass px-1"></i>
-            </form>
-        </div> -->
-    <!-- <script>
-      const navLinks = document.querySelector(".nav-links");
-      function onToggleMenu(e) {
-        e.name = e.name === "menu" ? "close" : "menu";
-        navLinks.classList.toggle("top-[5%]");
-      }
-    </script> -->
 
 
 

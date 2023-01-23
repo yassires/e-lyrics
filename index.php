@@ -1,8 +1,10 @@
 <?php
 include_once "class/userController.class.php";
 include_once "class/songController.class.php";
+include_once "class/artistController.class.php";
 $controller = new userController;
 $song = new songController;
+$artist = new artistController;
 session_start();
 if (!isset($_SESSION['user'])) {
   header('Location:login.php');
@@ -17,75 +19,80 @@ if (!isset($_SESSION['user'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script>
 
   <title>E-Lyrics</title>
 </head>
 
-<body class="font-[Poppins] bg-gradient-to-t from-gray-500 to-white h-screen">
-  <div class="bg-black p-3 flex justify-between items-center">
-    <div class="">
-      <form action="get" class="bg-white">
-        <input type="text" class="px-1" placeholder="Search Song & Artist">
-        <i class="fa-solid fa-magnifying-glass px-1"></i>
-      </form>
-    </div>
-    <h5 class="font-bold text-white pr-32">E-Lyrics</h5>
-    <div class="flex items-center gap-6">
-      <?php
-      if (isset($_SESSION["user"])) {
-      ?>
-        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-gray-300  md:mr-0 dark:text-white" type="button">
-          <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 mr-2 rounded-full" src="img.jpg" alt="user photo">
-          <?php echo $_SESSION["user"]["name"]; ?>
-          <i class="fa-solid fa-angle-down px-2"></i>
-        </button>
+<body class="font-[Poppins]  h-screen ">
+  <header class="bg-black">
+    <nav class="flex justify-between items-center w-[90%] mx-auto">
+      <div>
+        <h5 class="font-bold text-white pr-32">E-Lyrics</h5>
+      </div>
+      <div class="nav-links text-white md:w-auto w-full flex items-center p-3">
+        <ul class="flex pr-32 md:gap-[10%]">
+          <li>
+            <a class="hover:text-gray-500" href="home.php">Home</a>
+          </li>
+          |
+          <li>
+            <a class="hover:text-gray-500" href="#">Latest</a>
+          </li>
+          |
+          <li>
+            <a class="hover:text-gray-500" href="#">Artists</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-6 text-white">
+        <?php
+        if (isset($_SESSION["user"])) {
+        ?>
+          <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+            <span class="sr-only">Open user menu</span>
+            <img class="w-8 h-8 mr-2 rounded-full" src="img.jpg" alt="user photo" />
+            <div class="text-white">
+              <?php echo $_SESSION["user"]["name"]; ?>
+              <i class="fa-solid fa-angle-down px-2"></i>
+            </div>
 
-        <!-- Dropdown menu -->
-        <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div class="font-medium "><?php echo $_SESSION["user"]["name"]; ?></div>
-            <div class="truncate"><?php echo $_SESSION["user"]["email"]; ?></div>
+
+          </button>
+
+          <!-- Dropdown menu -->
+          <div id="dropdownAvatarName" class="text-white z-10 hidden divide-y divide-gray-100 rounded shadow w-44 bg-gray-700 divide-gray-600">
+            <div class="px-4 py-3 text-sm text-white">
+              <div class="font-medium"><?php echo $_SESSION["user"]["name"]; ?></div>
+              <div class="truncate"><?php echo $_SESSION["user"]["email"]; ?></div>
+            </div>
+            <ul class="py-1 text-sm " aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+              <li>
+                <a href="index.php" class="block px-4 py-2 hover:bg-gray-100  hover:text-black">Dashboard</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100  dark:hover:text-black">Settings</a>
+              </li>
+            </ul>
+            <div class="py-1">
+              <a href="includes/logoutInc.php" class="block px-4 py-2 text-sm text-white hover:bg-gray-100  dark:hover:text-black">Sign out</a>
+            </div>
           </div>
-          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-            <li>
-              <a href="index.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-            </li>
-          </ul>
-          <div class="py-1">
-            <a href="includes/logoutInc.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-          </div>
-        </div>
-      <?php
-      }
-      ?>
-      <!-- <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon> -->
-    </div>
-  </div>
-  <div class="flex justify-between items-center w-full mx-auto ">
+        <?php
+        } else {
+        ?>
+          <a href="login.php" class="text-white hover:text-gray-300">SIGN IN</a>
+        <?php
+        }
+        ?>
+      </div>
+    </nav>
+  </header>
 
-    <div class="  bg-slate-600	 md:min-h-full md:w-full w-full flex justify-around px-5">
-      <ul class="flex  md:items-center md:gap-[4vw] gap-10 text-white p-1.5">
-        <li>
-          <a class="hover:text-black" href="home.php">Home</a>
-        </li>
-        |
-        <li>
-          <a class="hover:text-black" href="#">Latest</a>
-        </li>
-        |
-        <li>
-          <a class="hover:text-black" href="#">Artists</a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
 
   <div class="flex-auto">
     <div class="flex flex-col">
@@ -137,59 +144,135 @@ if (!isset($_SESSION['user'])) {
           <!-- Grid ends here..-->
 
         </div>
-
-        <div class="p-5 pb-0 flex justify-end">
-          <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
-            Add song
-          </button>
+        <div class="flex justify-end">
+          <div class="p-5 pb-0 " onclick="addbtn()">
+            <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
+              Add Song
+            </button>
+          </div>
+          <div class="p-5 pb-0 " onclick=" add_artist_btn()">
+            <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
+              Add Artist
+            </button>
+          </div>
         </div>
 
 
-        <div div class=" mt-5 grid  lg:grid-cols-3  md:grid-cols-3 p-4 gap-3">
 
-          <div class="col-span-2 flex flex-col   p-8 bg-white rounded shadow-sm">
+        <div div class=" mt-5 grid md:grid-cols-1   lg:grid-cols-2  xl:grid:cols-3 p-4 gap-3">
+
+          <div class=" col-span-2 md:col-span-1 lg:col-span-1 sm:col-span-1 flex flex-col   p-5 bg-white rounded shadow-sm ">
             <b class="flex flex-row text-gray-500 text-3xl">Latest</b>
+            <div class="flex justify-end">
+              <form action="get" class="bg-white border border-black">
+                <input type="text" class="px-1 border border-none" placeholder="Search Song & Artist" id="myInput" onkeyup="search()">
+                <i class="fa-solid fa-magnifying-glass px-1"></i>
+              </form>
+            </div>
 
-            <?php
-            $sng = $song->getSongs();
-            foreach ($sng as $s) { ?>
-              <div class="grid p-4 gap-3">
-                <div class="col-span-2 flex flex-auto items-center justify-between p-5 bg-white rounded">
-                  <table class="min-w-full divide-y divide-gray-200 table-auto">
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      <tr>
+
+            <div class="grid p-4 gap-3 ">
+              <div class="col-span-2 flex flex-auto items-center justify-between bg-white rounded">
+                <table id="table" class="min  -w-full divide-y divide-gray-200 table-auto">
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <?php
+                    $sng = $song->getSongs();
+                    foreach ($sng as $s) { ?>
+                      <tr id="<?php echo $s["idSong"] ?>">
                         <td class="px-6 py-4 whitespace-nowrap">
                           <div class="flex items-center">
+                            <div class="text-black" id="index">
+                              <?php echo $s["idSong"] ?>
+                            </div>
                             <div class="flex-shrink-0 h-16 w-16">
                               <img class="h-16 w-16" src="<?php echo $s["sng_img"] ?>" alt="" />
                             </div>
                             <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900"><?php echo $s["title"]; ?></div>
+                              <div class="text-sm font-medium text-gray-900 title" data-title="<?php echo $s["title"] ?>" id="song_title"> <?php echo $s["title"]; ?></div>
                             </div>
                           </div>
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
                           <span>
-                            <div class="text-sm text-gray-500"><?php echo $s["artist_name"]; ?></div>
+                            <div class="text-sm text-gray-500" artist_name=<?php echo $s["idArtist"]; ?> id="song_artist"> <?php echo $s["name"]; ?></div>
                           </span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $s["genre"]; ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap hidden">
+                          <span>
+                            <div class="text-sm text-gray-500" release_date=<?php echo $s["date"]; ?> id="song_release"><?php echo $s["date"]; ?></div>
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span>
+                            <div class="text-sm text-gray-500" album=<?php echo $s["album"]; ?> id="song_album"><?php echo $s["album"]; ?></div>
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap hidden">
+                          <span>
+                            <div class="text-sm text-gray-500" lyrics=<?php echo $s["lyrics"]; ?> id="song_lyrics"> <?php echo $s["lyrics"]; ?></div>
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" genre=<?php echo $s["genre_id"]; ?> id="song_genre"> <?php echo $s["g_name"]; ?></td>
+                        <td>
+                          <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="button" onclick="edit(<?php echo $s['idSong'] ?>)">
+                            <i class="fa-solid fa-pen-to-square text-gray-500"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    <?php
+                    } ?>
+                    <!-- More people... -->
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div class=" flex flex-col   p-5 bg-white rounded shadow-sm md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
+            <b class="flex flex-row text-gray-500 text-3xl">Artists</b>
+            <?php
+            $art = $artist->getArtists();
+            foreach ($art as $a) { ?>
+              <div class="">
+                <div class=" flex flex-auto items-center justify-between bg-white rounded">
+                  <table class="min-w-full divide-y divide-gray-200 table-auto">
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="flex items-center">
+                            <div class="flex-shrink-0 h-12 w-12">
+                              <img class="h-12 w-12 rounded-full" src="<?php echo $a["artist_img"] ?>" alt="" />
+                            </div>
+                            <div class="ml-4">
+                              <div class="text-sm font-medium text-gray-900" name=<?php echo $a["id"] ?>> <?php echo $a["name"] ?></div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span>
+                            <div class="text-sm text-gray-500" artist_genre=<?php echo $a["genre"] ?>> <?php echo $a["genre"] ?></div>
+                          </span>
+                        </td>
                       </tr>
                       <!-- More people... -->
                     </tbody>
                   </table>
+                  <div>
+                    <button data-modal-target="artist-modal" data-modal-toggle="artist-modal" type="button" onclick="edit_artist(id)">
+                      <i class="fa-solid fa-pen-to-square text-gray-500"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
             <?php
             } ?>
-
-          </div>
-
-          <div class=" flex flex-col   p-5 bg-white rounded shadow-sm">
-            <b class="flex flex-row text-gray-500 text-3xl">Artists</b>
-
           </div>
 
 
@@ -274,42 +357,41 @@ if (!isset($_SESSION['user'])) {
   <!-- Modal toggle -->
 
 
-  <!-- Main modal -->
-  <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+  <!-- song modal -->
+  <div id="song-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
     <div class="relative w-full h-full max-w-md md:h-auto">
       <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="rounded-lg shadow bg-gray-700">
         <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
-        <div class="px-6 py-6 lg:px-8">
-          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Song lyrics</h3>
-          <form class="space-y-6" method="post" action="includes/handlers/songHandler.php">
+        <div class="px-6 py-3 lg:px-8">
+          <h3 class="mb-4 text-xl font-medium text-white">Add Song lyrics</h3>
+          <form class="space-y-3" id="s_modal" method="post" action="includes/handlers/songHandler.php">
             <div>
-              <input type="file" name="img" id="img" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+              <input type="hidden" id="id" name="id" value="">
+              <input type="file" name="img" id="img" class="border border-gray-300 text-white text-sm rounded-lg w-full bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
             </div>
             <div>
               <label for="title" class=" mb-2 text-sm font-medium text-white">title</label>
               <input type="text" name="title" id="title" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
             </div>
             <div>
-              <label for="title" class=" mb-2 text-sm font-medium text-white">Artist</label>
-              <select name="artist" class="form-select" id="artist">
-                <option value="">Please select</option>
-                <option value="1">Artist 1</option>
-                <option value="2">Artist 2</option>
-                <option value="3">Artist 3</option>
-                <option value="4">Artist 4</option>
+              <select name="artist" class="form-select mb-2 bg-gray-500 p-3 text-white" id="artist">
+                <option value="">Please select Artist</option>
+                <?php $art = $artist->getArtists();
+                foreach ($art as $a) { ?>
+                  <option value="<?php echo $a['id'] ?>"><?php echo $a['name']; ?></option>
+                <?php } ?>
               </select>
             </div>
             <div>
-              <label for="title" class=" mb-2 text-sm font-medium text-white">Genre</label>
-              <select name="genre" class="form-select" id="genre">
-                <option value="">Please select</option>
-                <option value="1">Genre 1</option>
-                <option value="2">Genre 2</option>
-                <option value="3">Genre 3</option>
-                <option value="4">Genre 4</option>
+              <select name="genre" class="form-select mb-2 bg-gray-500 p-3 text-white" id="genre">
+                <option selected>Please select Genre</option>
+                <?php $genres = $artist->getGenre();
+                foreach ($genres as $g) { ?>
+                  <option value="<?php echo $g['id'] ?>"><?php echo $g['name']; ?></option>
+                <?php } ?>
               </select>
             </div>
             <div>
@@ -325,13 +407,81 @@ if (!isset($_SESSION['user'])) {
               <textarea type="text" name="lyrics" id="lyrics" placeholder="Something" class=" border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " required></textarea>
             </div>
             <div class="flex justify-end px-2">
-              <button type="submit" name="add" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
+              <button type="submit" name="add" id="add" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
+            </div>
+            <div class="flex justify-end px-2">
+              <button type="submit" name="delete" id="delete" class="w-25% border border-red-400  text-white font-medium  text-sm px-5 py-2.5 text-center  hover:bg-red-400 hover:duration-300">Delete</button>
+            </div>
+            <div class="flex justify-end px-2">
+              <button type="submit" name="update" id="update" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Update</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <!-- artist modal -->
+  <div id="artist-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div class="relative w-full h-full max-w-md md:h-auto">
+      <!-- Modal content -->
+      <div class=" rounded-lg shadow bg-gray-700">
+        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="px-6 py-6 lg:px-8">
+          <h3 class="mb-4 text-xl font-medium  text-white">Add Artist</h3>
+          <form class="space-y-6" id="a_modal" method="post" action="includes/handlers/artistHandler.php">
+            <div>
+              <input type="file" name="img" id="img" class="border border-gray-300 text-white text-sm rounded-lg w-full bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+            </div>
+            <div>
+              <label for="title" class=" mb-2 text-sm font-medium text-white">Name</label>
+              <input type="text" name="name" id="name" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+            </div>
+            <div>
+              <label for="title" class=" mb-2 text-sm font-medium text-white">Genre</label>
+              <input type="text" name="genre" id="genre" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+            </div>
+
+            <div class="flex justify-end px-2">
+              <button type="submit" name="add" id="add_artist" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
+            </div>
+            <div class="flex justify-end px-2">
+              <button type="submit" name="delete" id="delete_artist" class="w-25% border border-red-400  text-white font-medium  text-sm px-5 py-2.5 text-center  hover:bg-red-400 hover:duration-300">Delete</button>
+            </div>
+            <div class="flex justify-end px-2">
+              <button type="submit" name="update" id="update_artist" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function search() {
+      let input = document.getElementById("myInput");
+      let filter = input.value.toUpperCase();
+      let table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+      for (let i = 0; i < tr.length; i++) {
+        let name = tr[i].getElementsByTagName("td")[0].children[0].children[2];
+        if (name) {
+          txtValue = name.textContent || name.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+
+      }
+    }
+  </script>
 
 </body>
 

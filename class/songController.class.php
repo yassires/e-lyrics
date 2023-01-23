@@ -17,4 +17,9 @@ class songController extends songModel
     {
         return $this->addSong($song_img,$title,$artist,$genre,$album,$date,$lyrics);
     }
+
+    public function updateSongs($song_img, $title, $artist, $date, $album, $lyrics, $genre,$id)
+    {
+        return $this->updateSong($song_img, $title, $artist, $date, $album, $lyrics, $genre,$id);
+    }
 }
