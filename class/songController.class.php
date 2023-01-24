@@ -22,4 +22,9 @@ class songController extends songModel
     {
         return $this->updateSong($song_img, $title, $artist, $date, $album, $lyrics, $genre,$id);
     }
+
+    public function deleteSongs($id)
+    {
+        return $this->deleteSong($id);
+    }
 }

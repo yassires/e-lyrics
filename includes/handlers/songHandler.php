@@ -5,12 +5,12 @@ include_once "../../class/songModel.class.php";
 
 if (isset($_POST["add"])) addSong();
 if (isset($_POST["update"])) updateSong();
+if (isset($_POST['delete'])) deleteSong();
 
 // add---------------------------------
 // add---------------------------------
 function addSong()
 {
-
     //collecting the data
     $song_img  = $_POST["img"];
     $title = $_POST["title"];
@@ -55,4 +55,12 @@ function updateSong()
     // Going back to the front page
 
     header("location: ../../index.php");
+}
+
+function deleteSong()
+{
+    $id = $_POST['id'];
+    $song = new songController($id);
+    $song->deleteSongs(intval($id));
+    header("location:../../index.php?msg2=Song has been deleted succesfully");
 }

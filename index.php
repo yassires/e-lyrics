@@ -5,6 +5,9 @@ include_once "class/artistController.class.php";
 $controller = new userController;
 $song = new songController;
 $artist = new artistController;
+$song_count = new songController;
+$user_count = new songController;
+$artist_count = new songController;
 session_start();
 if (!isset($_SESSION['user'])) {
   header('Location:login.php');
@@ -32,7 +35,7 @@ if (!isset($_SESSION['user'])) {
   <header class="bg-black">
     <nav class="flex justify-between items-center p-2">
       <div class="font-bold text-white sm:text-xs">
-         E-Lyrics
+        E-Lyrics
       </div>
       <div class=" text-white">
         <ul class="flex">
@@ -99,6 +102,9 @@ if (!isset($_SESSION['user'])) {
     <div class="bg-blue-50 min-h-screen">
       <div class="p-4 pt-28 pb-0  pl-10 font-bold text-gray-600">Statistics</div>
       <?php $res = $controller->getUsers();
+      $s_count = $song_count->song_count();
+      $u_count = $user_count->users_count();
+      $a_count = $artist_count->artist_count();
       ?>
 
       <div class=" mt-8 grid lg:grid-cols-3 sm:grid-cols-2 p-4 gap-10 ">
@@ -107,7 +113,7 @@ if (!isset($_SESSION['user'])) {
           <div>
             <div class="text-sm text-gray-400 ">Numbers of users</div>
             <div class="flex items-center pt-1">
-              <div class="text-3xl font-medium text-gray-600 ">34</div>
+              <div class="text-3xl font-medium text-gray-600 "><?php echo $u_count ?></div>
             </div>
           </div>
           <div class="text-gray-500 text-4xl">
@@ -117,15 +123,13 @@ if (!isset($_SESSION['user'])) {
 
         <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
           <div>
-            <div class="text-sm text-gray-400 ">Check Out Today</div>
+            <div class="text-sm text-gray-400 ">Total Artists</div>
             <div class="flex items-center pt-1">
-              <div class="text-3xl font-medium text-gray-600 ">44</div>
+              <div class="text-3xl font-medium text-gray-600 "><?php echo $a_count ?></div>
             </div>
           </div>
           <div class="text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
-            </svg>
+            <i class="fa-regular fa-user-music"></i>
           </div>
         </div>
 
@@ -133,7 +137,7 @@ if (!isset($_SESSION['user'])) {
           <div>
             <div class="text-sm text-gray-400 ">Total Songs</div>
             <div class="flex items-center pt-1">
-              <div class="text-3xl font-medium text-gray-600 ">10</div>
+              <div class="text-3xl font-medium text-gray-600 "><?php echo $s_count ?></div>
             </div>
           </div>
           <div class="text-gray-500 text-4xl">
@@ -144,7 +148,7 @@ if (!isset($_SESSION['user'])) {
         <!-- Grid ends here..-->
 
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-end mb-4">
         <div class="p-5 pb-0 " onclick="addbtn()">
           <button data-modal-target="song-modal" data-modal-toggle="song-modal" type="submit" class="border-2 border-black p-3 hover:duration-300  hover:bg-black hover:text-white ml-auto">
             Add Song
@@ -161,7 +165,7 @@ if (!isset($_SESSION['user'])) {
 
       <div class="sm:block sm:mb-10 md:flex p-1  md:p-4 gap-3 ">
 
-        <div class="sm:p-1  md:p-5 bg-white rounded shadow-sm  w-100">
+        <div class="sm:p-1  md:p-5 bg-white rounded shadow-sm  w-full">
           <b class=" text-gray-500 text-3xl">Latest</b>
           <div class="flex justify-end">
             <form action="get" class="bg-white border border-black">
@@ -365,56 +369,73 @@ if (!isset($_SESSION['user'])) {
         <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
           <i class="fa-solid fa-xmark"></i>
         </button>
-        <div class="px-6 py-3 lg:px-8">
+        <div class="px-6 py-1 lg:px-8">
           <h3 class="mb-4 text-xl font-medium text-white">Add Song lyrics</h3>
-          <form class="space-y-3" id="s_modal" method="post" action="includes/handlers/songHandler.php">
-            <div>
-              <input type="hidden" id="id" name="id" value="">
-              <input type="file" name="img" id="img" class="border border-gray-300 text-white text-sm rounded-lg w-full bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
-            </div>
-            <div>
-              <label for="title" class=" mb-2 text-sm font-medium text-white">title</label>
-              <input type="text" name="title" id="title" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
-            </div>
-            <div>
-              <select name="artist" class="form-select mb-2 bg-gray-500 p-3 text-white" id="artist">
-                <option value="">Please select Artist</option>
-                <?php $art = $artist->getArtists();
-                foreach ($art as $a) { ?>
-                  <option value="<?php echo $a['id'] ?>"><?php echo $a['name']; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-            <div>
-              <select name="genre" class="form-select mb-2 bg-gray-500 p-3 text-white" id="genre">
-                <option selected>Please select Genre</option>
-                <?php $genres = $artist->getGenre();
-                foreach ($genres as $g) { ?>
-                  <option value="<?php echo $g['id'] ?>"><?php echo $g['name']; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-            <div>
-              <label for="title" class=" mb-2 text-sm font-medium text-white">Album</label>
-              <input type="text" name="album" id="album" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
-            </div>
-            <div>
-              <label for="title" class=" mb-2 text-sm font-medium text-white">date</label>
-              <input type="date" name="date" id="date" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
-            </div>
-            <div>
-              <label for="lyrics" class="mb-2 text-sm font-medium  text-white">Lyrics</label>
-              <textarea type="text" name="lyrics" id="lyrics" placeholder="Something" class=" border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " required></textarea>
-            </div>
-            <div class="flex justify-end px-2">
+          <div class="model-body">
+            <form class="space-y-3" id="s_modal" method="post" action="includes/handlers/songHandler.php">
+              <div class="copy">
+                <div>
+                  <input type="hidden" id="id" name="id" value="">
+                  <input type="file" name="img[]" id="img" class="border border-gray-300 text-white rounded-lg w-full bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+                </div>
+                <div>
+                  <label for="title" class=" mb-2 text-sm font-medium text-white">title</label>
+                  <input type="text" name="title[]" id="title" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+                </div>
+                <div>
+                  <select name="artist[]" class="form-select mb-2 bg-gray-500 p-1 text-white" id="artist">
+                    <option value="">Please select Artist</option>
+                    <?php $art = $artist->getArtists();
+                    foreach ($art as $a) { ?>
+                      <option value="<?php echo $a['id'] ?>"><?php echo $a['name']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+                <div>
+                  <select name="genre[]" class="form-select mb-2 bg-gray-500 p-1 text-white" id="genre">
+                    <option selected>Please select Genre</option>
+                    <?php $genres = $artist->getGenre();
+                    foreach ($genres as $g) { ?>
+                      <option value="<?php echo $g['id'] ?>"><?php echo $g['name']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+                <div>
+                  <label for="title" class=" mb-2 text-sm font-medium text-white">Album</label>
+                  <input type="text" name="album[]" id="album" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+                </div>
+                <div>
+                  <label for="title" class=" mb-2 text-sm font-medium text-white">date</label>
+                  <input type="date" name="date" id="date" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
+                </div>
+                <div>
+                  <label for="lyrics" class="mb-2 text-sm font-medium  text-white">Lyrics</label>
+                  <textarea type="text" name="lyrics[]" id="lyrics" placeholder="Something" class=" border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " required></textarea>
+                </div>
+              </div>
+
+          
+          <div class="another-modal">
+
+          </div>
+          </div>
+
+          <div class="flex justify-end ">
+            <div class="px-2">
               <button type="submit" name="add" id="add" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
             </div>
-            <div class="flex justify-end px-2">
+            <div class="px-2">
+              <button type="button" name="more" id="more" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Add More</button>
+            </div>
+            <div class="px-2">
               <button type="submit" name="delete" id="delete" class="w-25% border border-red-400  text-white font-medium  text-sm px-5 py-2.5 text-center  hover:bg-red-400 hover:duration-300">Delete</button>
             </div>
-            <div class="flex justify-end px-2">
+            <div class="px-2">
               <button type="submit" name="update" id="update" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Update</button>
             </div>
+          </div>
+
+
           </form>
         </div>
       </div>
@@ -445,43 +466,29 @@ if (!isset($_SESSION['user'])) {
               <label for="title" class=" mb-2 text-sm font-medium text-white">Genre</label>
               <input type="text" name="genre" id="genre" class="border border-gray-300 text-white text-sm rounded-lg w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 " placeholder="song name" required>
             </div>
+            <div class="flex justify-end px-2">
+              <div>
+                <button type="submit" name="add" id="add_artist" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
+              </div>
+              <div class="px-2">
+                <button type="button" name="more" id="more_a" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Add More</button>
+              </div>
+              <div class="px-2">
+                <button type="submit" name="delete" id="delete_artist" class="w-25% border border-red-400  text-white font-medium  text-sm px-5 py-2.5 text-center  hover:bg-red-400 hover:duration-300">Delete</button>
+              </div>
+              <div class="flex justify-end px-2">
+                <button type="submit" name="update" id="update_artist" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Update</button>
+              </div>
+            </div>
 
-            <div class="flex justify-end px-2">
-              <button type="submit" name="add" id="add_artist" class="w-25% border border-white text-white font-medium  text-sm px-5 py-2.5 text-center  hover:text-black hover:bg-white hover:duration-300">Add</button>
-            </div>
-            <div class="flex justify-end px-2">
-              <button type="submit" name="delete" id="delete_artist" class="w-25% border border-red-400  text-white font-medium  text-sm px-5 py-2.5 text-center  hover:bg-red-400 hover:duration-300">Delete</button>
-            </div>
-            <div class="flex justify-end px-2">
-              <button type="submit" name="update" id="update_artist" class="w-25% border border-yellow-300 text-white font-medium  text-sm px-5 py-2.5 text-center hover:text-black   hover:bg-yellow-400 hover:duration-300">Update</button>
-            </div>
+
           </form>
         </div>
       </div>
     </div>
   </div>
 
-
-  <script>
-    function search() {
-      let input = document.getElementById("myInput");
-      let filter = input.value.toUpperCase();
-      let table = document.getElementById("table");
-      tr = table.getElementsByTagName("tr");
-      for (let i = 0; i < tr.length; i++) {
-        let name = tr[i].getElementsByTagName("td")[0].children[0].children[2];
-        if (name) {
-          txtValue = name.textContent || name.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-
-      }
-    }
-  </script>
+  <script src="main.js"></script>
 
 </body>
 

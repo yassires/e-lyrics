@@ -6,6 +6,9 @@ function edit(id){
     document.getElementById("delete").classList.add("block");
     document.getElementById("update").classList.add("block");
     document.getElementById("add").classList.add("hidden");
+    document.getElementById("more").classList.add("hidden");
+
+
 
     let title = document.getElementById(id).children[0].children[0].children[2].children[0].innerText
     let artist = document.getElementById(id).children[1].children[0].children[0].getAttribute('artist_name')
@@ -24,6 +27,26 @@ function edit(id){
 
     // document.getElementById("s_modal").reset(); 
     }
+
+
+    function addbtn(){
+        // alert('test');
+        document.getElementById("delete").classList.add("hidden");
+        document.getElementById("update").classList.add("hidden");
+        document.getElementById("add").classList.add("block");
+        document.getElementById("more").classList.add("block");
+        document.getElementById("add").classList.remove("hidden");
+        document.getElementById("delete").classList.remove("block");
+        document.getElementById("update").classList.remove("block");
+       
+        document.getElementById("s_modal").reset(); 
+        }
+
+
+
+    // ----------------------------------artist-----------------------------------------
+// ----------------------------------artist-----------------------------------------
+// ----------------------------------artist-----------------------------------------
 function edit_artist(id){
     // document.getElementById("id").value=id
     document.getElementById("add_artist").classList.remove("block");
@@ -32,6 +55,8 @@ function edit_artist(id){
     document.getElementById("delete_artist").classList.add("block");
     document.getElementById("update_artist").classList.add("block");
     document.getElementById("add_artist").classList.add("hidden");
+    document.getElementById("more_a").classList.add("hidden");
+
 
     // var test=document.getElementById(id).children
     var test=document.getElementById("artist_name").value=document.getElementById("name").getAttribute("name");
@@ -44,17 +69,7 @@ function edit_artist(id){
 }
 
 
-function addbtn(){
-    // alert('test');
-    document.getElementById("delete").classList.add("hidden");
-    document.getElementById("update").classList.add("hidden");
-    document.getElementById("add").classList.add("block");
-    document.getElementById("add").classList.remove("hidden");
-    document.getElementById("delete").classList.remove("block");
-    document.getElementById("update").classList.remove("block");
-   
-    document.getElementById("s_modal").reset(); 
-    }
+
 function add_artist_btn(){
     // alert('test');
     document.getElementById("delete_artist").classList.add("hidden");
@@ -63,6 +78,31 @@ function add_artist_btn(){
     document.getElementById("add_artist").classList.remove("hidden");
     document.getElementById("delete_artist").classList.remove("block");
     document.getElementById("update_artist").classList.remove("block");
+    document.getElementById("more").classList.add("block");
    
     document.getElementById("a_modal").reset(); 
     }
+
+
+
+//----------------------------search bar--------------------------- 
+//----------------------------search bar---------------------------
+
+function search() {
+  let input = document.getElementById("myInput");
+  let filter = input.value.toUpperCase();
+  let table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+  for (let i = 0; i < tr.length; i++) {
+    let name = tr[i].getElementsByTagName("td")[0].children[0].children[2];
+    if (name) {
+      txtValue = name.textContent || name.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+
+  }
+}

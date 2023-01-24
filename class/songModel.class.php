@@ -1,5 +1,5 @@
 <?php
-// include("../../DB.php");
+include_once("DB.php");
 
 class songModel extends DB
 {
@@ -18,17 +18,18 @@ class songModel extends DB
 
     public function addSong($song_img, $title, $artist, $date, $album, $lyrics, $genre)
     {
-
-        $sql = "INSERT INTO `songs`(`sng_img`, `title`, `release_date`, `album`, `lyrics`, `artist_id`, `genre_id`) VALUES ('sng_img/$song_img','$title','$date','$album','$lyrics','$artist','$genre')";
-        // var_dump($sql);
-        // die();
-        $statement = $this->connect()->prepare($sql);
-        if ($statement->execute()) {
-            $_SESSION["Message-success"] = "Song has been Added successfully!";
-            header("location: ./dashboard.php");
-        } else {
-            $_SESSION["Message-field"] = "Sorry something went wrong.";
-            header("location: ./dashboard.php");
+        for ($i = 0; $i < count($title); $i++) {
+            $sql = "INSERT INTO `songs`(`sng_img`, `title`, `release_date`, `album`, `lyrics`, `artist_id`, `genre_id`) VALUES ('sng_img/$song_img[$i]','$title[$i]','$date[$i]','$album[$i]','$lyrics[$i]','$artist[$i]','$genre[$i]')";
+            // var_dump($sql);
+            // die();
+            $statement = $this->connect()->prepare($sql);
+            if ($statement->execute()) {
+                $_SESSION["Message-success"] = "Song has been Added successfully!";
+                header("location: ./dashboard.php");
+            } else {
+                $_SESSION["Message-field"] = "Sorry something went wrong.";
+                header("location: ./dashboard.php");
+            }
         }
     }
 
@@ -59,5 +60,37 @@ class songModel extends DB
                 header("location: ./index.php");
             }
         }
+    }
+
+    public function deleteSong($id)
+    {
+        $sql = "DELETE FROM `songs` WHERE id=?";
+        $statement = $this->connect()->prepare($sql);
+        $statement->execute(array($id));
+    }
+
+    public function song_count()
+    {
+        $sql = "SELECT * FROM `songs`";
+        $statement = $this->Connect()->prepare($sql);
+        $statement->execute();
+        $res = $statement->rowCount();
+        return $res;
+    }
+    public function users_count()
+    {
+        $sql = "SELECT * FROM `user`";
+        $statement = $this->Connect()->prepare($sql);
+        $statement->execute();
+        $res = $statement->rowCount();
+        return $res;
+    }
+    public function artist_count()
+    {
+        $sql = "SELECT * FROM `artist`";
+        $statement = $this->Connect()->prepare($sql);
+        $statement->execute();
+        $res = $statement->rowCount();
+        return $res;
     }
 }
