@@ -11,6 +11,7 @@ if (isset($_POST['delete'])) deleteSong();
 // add---------------------------------
 function addSong()
 {
+   
     //collecting the data
     $song_img  = $_POST["img"];
     $title = $_POST["title"];

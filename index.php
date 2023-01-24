@@ -128,8 +128,8 @@ if (!isset($_SESSION['user'])) {
               <div class="text-3xl font-medium text-gray-600 "><?php echo $a_count ?></div>
             </div>
           </div>
-          <div class="text-gray-500">
-            <i class="fa-regular fa-user-music"></i>
+          <div class="text-gray-500 text-4xl">
+            <i class="fa-solid fa-microphone"></i>
           </div>
         </div>
 
@@ -414,10 +414,10 @@ if (!isset($_SESSION['user'])) {
                 </div>
               </div>
 
-          
-          <div class="another-modal">
 
-          </div>
+              <div class="another-modal">
+
+              </div>
           </div>
 
           <div class="flex justify-end ">
